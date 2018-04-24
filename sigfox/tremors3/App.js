@@ -2,14 +2,160 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MapView } from 'expo';
 
+const greenMarkerPin = require('./img/green_marker.png');
+const redMarkerPin = require('./img/red_marker.png');
+
+const markerList = [
+    {
+        markerTitle: 'Durango, Mexico',
+        markerDescription: 'Marker1',
+        markerLatitude: 24.6345,
+        markerLongitude: -102.5528
+    },
+    {
+        markerTitle: 'Central Sonora, Mexico',
+        markerDescription: 'Marker2',
+        markerLatitude: 28.2972,
+        markerLongitude: -109.3309
+    },
+    {
+        markerTitle: 'Northern Chihuhua, Mexico',
+        markerDescription: 'Marker3',
+        markerLatitude: 30.1504,
+        markerLongitude: -107.1143
+    },
+    {
+        markerTitle: 'Southern Sonora, Mexico',
+        markerDescription: 'Marker4',
+        markerLatitude: 26.96671,
+        markerLongitude: -108.6963
+    },
+    {
+        markerTitle: 'Eastern Chihuahua, Mexico',
+        markerDescription: 'Marker5',
+        markerLatitude: 27.6694,
+        markerLongitude: -104.7742
+    },
+    {
+        markerTitle: 'Monterry Nuevo Leon, Mexico',
+        markerDescription: 'Marker6',
+        markerLatitude: 25.8299,
+        markerLongitude: -100.188941
+    },
+    {
+        markerTitle: 'Rancho San Fernando, Coahuila, Mexico',
+        markerDescription: 'Marker7',
+        markerLatitude: 26.66047,
+        markerLongitude:  -102.285499
+    },
+    {
+        markerTitle: 'San Ignacio, Sinaloa, Mexico',
+        markerDescription: 'Marker8',
+        markerLatitude: 23.838873 ,
+        markerLongitude:  -105.443824
+    },
+    {
+        markerTitle: 'Nayarit, Mexico',
+        markerDescription: 'Marker9',
+        markerLatitude: 22.029768 ,
+        markerLongitude:  -104.680518
+    },
+    {
+        markerTitle: 'Rioverde, S.L.P., Mexico',
+        markerDescription: 'Marker10',
+        markerLatitude: 22.183973,
+        markerLongitude: -100.538672
+    },
+    {
+        markerTitle: 'Tamaulipas, Mexico',
+        markerDescription: 'Marker11',
+        markerLatitude: 23.399364,
+        markerLongitude: -99.176368
+    },
+    {
+        markerTitle: 'Ciudad de Colima, Mexico',
+        markerDescription: 'Marker12',
+        markerLatitude: 19.100146,
+        markerLongitude: -102.83008
+    },
+    {
+        markerTitle: 'Michoacan, Mexico',
+        markerDescription: 'Marker13',
+        markerLatitude: 18.434409,
+        markerLongitude: -101.720704
+    },
+    {
+        markerTitle: 'Guerrero, Mexico',
+        markerDescription: 'Marker14',
+        markerLatitude: 18.011224,
+        markerLongitude: -99.967383
+    },
+    {
+        markerTitle: 'E.D.M., Mexico',
+        markerDescription: 'Marker15',
+        markerLatitude: 19.141667,
+        markerLongitude: -99.967383
+    },
+    {
+        markerTitle: 'Hidalgo, Mexico',
+        markerDescription: 'Marker16',
+        markerLatitude: 19.845908,
+        markerLongitude: -98.912696
+    },
+    {
+        markerTitle: 'Southern Gerrero, Mexico',
+        markerDescription: 'Marker17',
+        markerLatitude: 16.800993,
+        markerLongitude: -98.165626
+    },
+    {
+        markerTitle: 'Veracruz, Mexico',
+        markerDescription: 'Marker18',
+        markerLatitude: 19.017074,
+        markerLongitude: -96.583594
+    },
+    {
+        markerTitle: 'Oaxaca, Mexico',
+        markerDescription: 'Marker19',
+        markerLatitude: 16.464141,
+        markerLongitude: -96.62754
+    },
+    {
+        markerTitle: 'Chiapas, Mexico',
+        markerDescription: 'Marker20',
+        markerLatitude: 15.450108,
+        markerLongitude: -92.320899
+    },
+    {
+        markerTitle: 'Northern Chiapas, Mexico',
+        markerDescription: 'Marker21',
+        markerLatitude: 17.472897,
+        markerLongitude: -91.793555
+    },
+    {
+        markerTitle: 'Campeche, Mexico',
+        markerDescription: 'Marker22',
+        markerLatitude: 18.933959,
+        markerLongitude: -89.420508
+    },
+];
+  
 
 export default class App extends React.Component {
-  
+    constructor(props) {
+        super(props);
+        this.list = markerList;
+        this.listLen = this.list.length;
+        return ;
+    }
     render() {
         return (
-            <View style={styles.map}>
+            <View style={styles.container}>
             <MapView
             style={styles.map}
+            showsUserLocation={true}
+            mapType={'standard'}
+            zoomEnabled={true}
             initialRegion={{
                 latitude: 23.6345,
                 longitude: -102.5528,
@@ -17,184 +163,30 @@ export default class App extends React.Component {
                 longitudeDelta: 20,
               }}
             >
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 24.6345,
-                        longitude: -102.5528
+            {Array.apply(null, Array(this.listLen)).map(
+                function(item, i) {
+                  return (
+                    <MapView.Marker
+                      coordinate= {{
+                        latitude: this.list[i].markerLatitude,
+                        longitude: this.list[i].markerLongitude
+                      }}
+                      title = { this.list[i].markerTitle }
+                      description = { this.list[i].markerDescription }
+                      key={i}
+                      image={greenMarkerPin}
+                    />
+                  );
+                }, this)}
+                <MapView.Circle
+                    center={{
+                        latitude: 18.63,
+                        longitude: -101.50
                     }}
-                    title={'Durango, Mexico'}
-                    description={'Marker1'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 28.2972,
-                        longitude: -109.3309
-                    }}
-                    title={'Central Sonora, Mexico'}
-                    description={'Marker2'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 30.1504,
-                        longitude: -107.1143
-                    }}
-                    title={'Northern Chihuhua, Mexico'}
-                    description={'Marker3'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 26.96671,
-                        longitude: -108.6963
-                    }}
-                    title={'Southern Sonora, Mexico'}
-                    description={'Marker4'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 27.6694,
-                        longitude: -104.7742
-                    }}
-                    title={'Eastern Chihuahua, Mexico'}
-                    description={'Marker5'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 25.8299,
-                        longitude: -100.188941
-                    }}
-                    title={'Monterry Nuevo Leon, Mexico'}
-                    description={'Marker6'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 26.66047,
-                        longitude:  -102.285499
-                    }}
-                    title={'Rancho San Fernando, Coahuila, Mexico'}
-                    description={'Marker7'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 23.838873 ,
-                        longitude: -106.443824
-
-                    }}
-                    title={'San Ignacio, Sinaloa, Mexico'}
-                    description={'Marker8'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 22.029768 ,
-                        longitude: -104.680518
-
-
-                    }}
-                    title={'Nayarit, Mexico'}
-                    description={'Marker9'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 22.183973 ,
-                        longitude: -100.538672
-                    }}
-                    title={'Rioverde, S.L.P., Mexico'}
-                    description={'Marker10'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 23.399364 ,
-                        longitude: -99.176368
-                    }}
-                    title={'Tamaulipas, Mexico'}
-                    description={'Marker11'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 19.100146 ,
-                        longitude: -103.483008
-                    }}
-                    title={'Ciudad de Colima, Mexico'}
-                    description={'Marker12'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 18.434409,
-                        longitude: -102.120704
-                    }}
-                    title={'Michoacan, Mexico'}
-                    description={'Marker13'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 17.011224,
-                        longitude: -99.967383
-                    }}
-                    title={'Guerrero, Mexico'}
-                    description={'Marker14'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 19.141667,
-                        longitude: -99.967383
-                    }}
-                    title={'E.D.M., Mexico'}
-                    description={'Marker15'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 19.845908,
-                        longitude: -98.912696
-                    }}
-                    title={'Hidalgo, Mexico'}
-                    description={'Marker16'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 16.800993,
-                        longitude: -98.165626
-                    }}
-                    title={'Southern Gerrero, Mexico'}
-                    description={'Marker17'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 19.017074,
-                        longitude: -96.583594
-                    }}
-                    title={'Veracruz, Mexico'}
-                    description={'Marker18'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 16.464141,
-                        longitude:  -96.62754
-                    }}
-                    title={'Oaxaca, Mexico'}
-                    description={'Marker19'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 15.450108,
-                        longitude:  -92.320899
-                    }}
-                    title={'Chiapas, Mexico'}
-                    description={'Marker20'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 17.472897,
-                        longitude: -91.793555
-                    }}
-                    title={'Northern Chiapas, Mexico'}
-                    description={'Marker21'}
-                />
-                <MapView.Marker 
-                    coordinate= {{
-                        latitude: 18.933959,
-                        longitude: -89.420508
-                    }}
-                    title={'Campeche, Mexico'}
-                    description={'Marker22'}
+                    radius={300000} 
+                    strokeColor={'rgba(255,255,255,0,5)'}
+                    strokeWidth={0.5}
+                    fillColor={'rgba(204,20,20,0.3)'}
                 />
             </MapView>
             </View>
