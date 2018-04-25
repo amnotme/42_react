@@ -139,7 +139,7 @@ const markerList = [
         markerLongitude: -89.420508
     },
 ];
-const earthquakeLat =  16.095054;
+const earthquakeLat =  18.095054;
 const earthquakeLon =  -101.401719;
 const radiusOfEarthQuake = [
     {
@@ -154,8 +154,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 8,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 300000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -164,8 +164,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 7,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 200000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -174,8 +174,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 6,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 150000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -184,8 +184,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 5,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 100000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -194,8 +194,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 4,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 70000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -204,8 +204,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 3,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 50000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -214,8 +214,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 2,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 20000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
@@ -224,8 +224,8 @@ const radiusOfEarthQuake = [
     },
     {
         category: 1,
-        centerLatitude: 18.63,
-        centerLongitude: -101.50,
+        centerLatitude: earthquakeLat,
+        centerLongitude: earthquakeLon,
         radiusInMeter: 10000,
         strokeWidth: 0.5,
         strokeColor: 'rgba(255, 255, 255, 0.01)',
