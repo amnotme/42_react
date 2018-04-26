@@ -7,13 +7,58 @@ import redMarkerPin from "./img/red_marker.png";
 import * as firebase from "firebase";
 
 
+//defaults:
+const earthquakeLat =  17.0542;
+const earthquakeLon =  -96.71329;
+const earthquakeCat = 9
+;
+
+const categories = [
+    {
+        category: 1,
+        radiusInMeter: 10000
+    },
+    {
+        category: 2,
+        radiusInMeter: 20000
+    },
+    {
+        category: 3,
+        radiusInMeter: 50000
+    },
+    {
+        category: 4,
+        radiusInMeter: 70000
+    },
+    {
+        category: 5,
+        radiusInMeter: 100000
+    },
+    {
+        category: 6,
+        radiusInMeter: 150000
+    },
+    {
+        category: 7,
+        radiusInMeter: 200000
+    },
+    {
+        category: 8,
+        radiusInMeter: 300000
+    },
+    {
+        category: 9,
+        radiusInMeter: 380000
+    }
+];
+
 // Earthquakes in different locations with different magnitudes 
 
 //20 miles from Mexicali, Baja California, Mexico · Apr 22, 10:53 AM 2.7
 
-const earthquakeLat =  30.8406;
-const earthquakeLon =  -115.2838;
-const earthquakeCat = 2.7;
+// const earthquakeLat =  30.8406;
+// const earthquakeLon =  -115.2838;
+// const earthquakeCat = 3;
 
 //The magnitude 6.1 quake hit 43km (27 miles) east of Oaxaca at a depth of 10km at 6.56GMT
 
@@ -33,24 +78,6 @@ const earthquakeCat = 2.7;
 // const earthquakeLon =  -104.2527;
 // const earthquakeCat = 8.0;
 
-
-// let fromCategory = Object.keys(radiusOfEarthQuake).length - Math.floor(earthquakeCat)
-// for (let i = 0; i < markerList.length; i++){
-//     // Returns the distance from ‘this’ point to destination point (using haversine formula).
-//     let p1 = new LatLon(markerList[i].markerLatitude, markerList[i].markerLongitude);
-//     let p2 = new LatLon(earthquakeLat, earthquakeLon);
-//     let d = p1.distanceTo(p2);
-
-//     // alert(Object.keys(radiusOfEarthQuake).length);
-//     if (d <= /*radiusOfEarthQuake[radiusOfEarthQuake.length - Math.floor(earthquakeCat)].radiusInMeter*/ 10000) {
-//         markerList[i].withinTremor = true;
-//     } else {
-//         markerList[i].withinTremor = false;
-//     }
-// }
-
-
-
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCFfiQarjJjz6GYwi3pt1O4sizM2XjpHJI",
@@ -59,32 +86,17 @@ const firebaseConfig = {
     projectId: "tremors-1524470767864",
     storageBucket: "tremors-1524470767864.appspot.com",
   };
-  
 firebase.initializeApp(firebaseConfig);
-// const rootRef = firebase.database().ref();
-// const radiusRef = rootRef.child('radiusOfEarthquake');
-// alert(radiusRef);
 export default class App extends React.Component {
-    
     constructor(props) {
         super(props);
-        // this.list = markerList;
-        // this.listLen = this.list.length;
+        let my = this;
         this.state = ({
             radiusOfEarthquake: [],
             markerList: [],
+            len: 9,
         });
-        
-        // alert(radiusOfEarthQuake.ref());
-        // this.app = firebase.initializeApp(firebaseConfig);
-        // this.radis = this.app.database().ref().child('node');
-        // alert(this.radis[9]);
-        // this.radi = radiusOfEarthQuake;
-        // this.radiLen = this.radi.length;
         return ;
-        // alert(this.state.radiusOfEarthquake['category']);
-       
-    
     }
     componentWillMount(){
         let that = this;
@@ -99,12 +111,12 @@ export default class App extends React.Component {
                 res["key"] = data.key;
                 finished.push(res);
             })
-            let len = finished.length;
             that.setState({
                 radiusOfEarthquake: finished
             })
-        })
-        k.once('value', snapshot => {
+        }) 
+        k.on('value', snapshot => {
+            finished2 =[];
             snapshot.forEach(function(data){
                 let res = data.val();
                 res["key"] = data.key;
@@ -112,9 +124,10 @@ export default class App extends React.Component {
             })
             that.setState({
                 markerList: finished2
-            })
+            })       
         })  
     }
+    
     render() {
         return (
             <View style={styles.container}>
@@ -129,12 +142,17 @@ export default class App extends React.Component {
                 latitudeDelta: 20,
                 longitudeDelta: 20,
               }}
-            >
-            
-            {/* {Array.apply(null, Array(this.listLen)).map(
-                function(item, i) {
-                  */}
-                 { this.state.markerList.map(function(x, i){
+            >   
+                 { this.state.markerList.map(function(x, i){   
+                         // Returns the distance from ‘this’ point to destination point (using haversine formula).
+                         let p1 = new LatLon(x.markerLatitude, x.markerLongitude);
+                         let p2 = new LatLon(earthquakeLat, earthquakeLon);
+                         let d = p1.distanceTo(p2);
+                         if (d <= categories[Math.floor(earthquakeCat) - 1].radiusInMeter){
+                            x.withinTremor = true;
+                         } else {
+                             x.withinTremor = false;
+                         }
                     return (  
                     <MapView.Marker
                       coordinate= {{
@@ -152,24 +170,26 @@ export default class App extends React.Component {
                     </MapView.Marker>
                   );
                 })}
-    
-                     { this.state.radiusOfEarthquake.map(function(x, i){
-                        // if (fromCategory <= i){
-                        return (
-                            <MapView.Circle 
-                            center= {{
-                                latitude: x.centerLatitude,
-                                longitude: x.centerLongitude
-                            }}
-                            radius = { x.radiusInMeter }
-                            strokeColor = { x.strokeColor }
-                            strokeWidth = { x.strokeWidth }
-                            fillColor = { x.fillColor }
-                            zIndex = { x.zIndex }
-                            key = {i}
-                            />
-                        )
-                     })} 
+             
+                { this.state.radiusOfEarthquake.map(function(x, i){
+                
+                let fromCategory = 9 - Math.floor(earthquakeCat);
+                if (fromCategory <= i){
+                return (
+                    <MapView.Circle 
+                    center= {{
+                        latitude: x.centerLatitude,
+                        longitude: x.centerLongitude
+                    }}
+                    radius = { x.radiusInMeter }
+                    strokeColor = { x.strokeColor }
+                    strokeWidth = { x.strokeWidth }
+                    fillColor = { x.fillColor }
+                    zIndex = { x.zIndex }
+                    key = {i}
+                    />
+                )
+                }})} 
             </MapView>
             </View>
         );
