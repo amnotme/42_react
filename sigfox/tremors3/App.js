@@ -10,8 +10,7 @@ import * as firebase from "firebase";
 //defaults:
 const earthquakeLat =  17.0542;
 const earthquakeLon =  -96.71329;
-const earthquakeCat = 9
-;
+const earthquakeCat = 3;
 
 const categories = [
     {
@@ -134,7 +133,7 @@ export default class App extends React.Component {
             <MapView
             style={styles.map}
             showsUserLocation={true}
-            mapType={'standard'}
+            mapType={'hybrid'}
             zoomEnabled={true}
             initialRegion={{
                 latitude: 23.6345,
@@ -170,10 +169,10 @@ export default class App extends React.Component {
                     </MapView.Marker>
                   );
                 })}
-             
+
                 { this.state.radiusOfEarthquake.map(function(x, i){
                 
-                let fromCategory = 9 - Math.floor(earthquakeCat);
+                let fromCategory = 9  - Math.floor(earthquakeCat);
                 if (fromCategory <= i){
                 return (
                     <MapView.Circle 
