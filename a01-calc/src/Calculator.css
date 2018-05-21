@@ -1,0 +1,11 @@
+button {
+	height : 2em;
+	width: 4em;
+	background-color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
+	margin: 1em;
+	padding: 5px;
+}
+input {
+	color: rgb(123, 0, 123);
+}

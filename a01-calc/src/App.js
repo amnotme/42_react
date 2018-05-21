@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Calculator.css';
 class Calculator extends Component {
  	constructor(props) {
 		super(props);
@@ -44,7 +45,7 @@ class Calculator extends Component {
 	}
 	divide(e) {
 		e.preventDefault();
-		const res = this.state.num1 / this.state.num2;
+		const res = this.state.num2 === 0 ? "You can't divide by 0" : this.state.num1 / this.state.num2;
 		this.setState({ result: res });
 	}
 	clear(e) {
