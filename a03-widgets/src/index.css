@@ -60,7 +60,7 @@ body {
 	padding: 10px;
 	text-align: center;
 	border-radius: 3em;
-
+	margin: 20px;
 }
 
 .clock-section p {
@@ -69,4 +69,17 @@ body {
 
 .tabs-section {
 	font-weight: 900;
+	background-color: #758e92;
+	height: 400px;
+	width: 300px;
+	color: #fff;
+	margin: 20px;
+}
+
+.tabs-section-h1 {
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	border-width: medium;
+	font-size: 2em;
+	border: solid 1px #fff;
 }
